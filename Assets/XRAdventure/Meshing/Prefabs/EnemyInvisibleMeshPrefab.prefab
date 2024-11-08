@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7893389973303568606}
   - component: {fileID: -5242309129075869663}
   m_Layer: 0
-  m_Name: InvisibleMeshPrefab 1
+  m_Name: EnemyInvisibleMeshPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5e4da82c36a6f4b8a5bd04056da895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arPrefab: {fileID: 7531433366306101547, guid: ad902307b5dbb4189b266a0baca24947,
+  arPrefab: {fileID: 4300634726563017581, guid: 94a57305ad64cba48a0ee1b4899f6a46,
     type: 3}
   spawnInterval: 10

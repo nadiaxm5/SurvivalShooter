@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    //SCRIPT PARA CONTROLAR COLLIDER Y DESTRUCCIÓN PELOTAS
+
     [SerializeField] private float autoDestroyTime = 20.0f;
     private float timer = 0;
 

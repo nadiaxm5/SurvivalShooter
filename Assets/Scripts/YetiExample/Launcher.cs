@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Launcher : MonoBehaviour
 {
+    //SCRIPT PARA LANZAR LAS BOLAS DE NIEVE A LOS YETIS
+
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float force = 450.0f;
     [SerializeField] private Transform pointer;

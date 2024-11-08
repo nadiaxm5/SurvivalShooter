@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeshSpawner : MonoBehaviour
 {
+    //SCRIPT PARA INSTANCIAR YETIS POR LA MESH DEL MUNDO REAL
 
     [SerializeField] private GameObject arPrefab;
     [SerializeField] private float spawnInterval = 10.0f;
