@@ -29,7 +29,15 @@ public class ClickToMove : MonoBehaviour
 
     private void StartAfterPlacement()
     {
-        agent = GameObject.FindObjectOfType<LightshipNavMeshAgent>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            agent = playerObject.GetComponent<LightshipNavMeshAgent>();
+            if (agent == null)
+            {
+                Debug.LogWarning("No se encontró el componente LightshipNavMeshAgent en el GameObject con la etiqueta 'Player'.");
+            }
+        }
         isPlaced = true;
         StartCoroutine(MoveAlongWayPoints());
     }
