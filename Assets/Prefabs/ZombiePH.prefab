@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9c6c34ba7214d98a185db26b656d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 3
+  walkingSpeed: 2
   jumpDistance: 1
   jumpPenalty: 2
   pathFindingBehaviour: 2
@@ -157,4 +157,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f957f0357ce119a48a5f67401cc1c112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoppingRadius: 0.1
+  updateInterval: 0.5
