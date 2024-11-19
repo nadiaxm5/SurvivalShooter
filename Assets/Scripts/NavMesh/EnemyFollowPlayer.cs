@@ -34,8 +34,12 @@ public class EnemyFollowPlayer : MonoBehaviour
         {
             if (player != null)
             {
-                // Establece la posición del player como destino
-                enemyAgent.SetDestination(player.transform.position);
+                // Establece una posición cerca del player como destino
+                Vector3 playerPosition = player.transform.position;
+                Vector3 directionToPlayer = (playerPosition - enemyAgent.transform.position).normalized;
+                Vector3 closeToPlayer = playerPosition - directionToPlayer * 0.1f;
+                closeToPlayer.y = enemyAgent.transform.position.y;
+                enemyAgent.SetDestination(closeToPlayer);
             }
 
             // Espera el intervalo antes de actualizar nuevamente
