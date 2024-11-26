@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.05
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
         type: 3}
@@ -83,10 +83,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZombiePH
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3115175038723252032}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fc330ac55c100d40b8f03715bdd7a8a,
         type: 3}
       insertIndex: -1
@@ -106,6 +115,33 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4848660307128258312}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &3115175038723252032
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730987815297593945}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!136 &91540825085718229
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -141,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9c6c34ba7214d98a185db26b656d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 2
+  walkingSpeed: 1.5
   jumpDistance: 1
   jumpPenalty: 2
   pathFindingBehaviour: 2
@@ -158,3 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateInterval: 0.5
+  separationRadius: 0.02
+  separationStrength: 0.01
