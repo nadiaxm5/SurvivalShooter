@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float updateInterval = 0.5f;
     [SerializeField] private float separationRadius = 0.02f;
     [SerializeField] private float separationStrength = 0.01f;
+    private float distanceToPlayer = 0.05f;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class EnemyMovement : MonoBehaviour
                 //Put a position near the player as destination 
                 Vector3 playerPosition = player.transform.position;
                 Vector3 directionToPlayer = (playerPosition - enemyAgent.transform.position).normalized;
-                Vector3 closeToPlayer = playerPosition - directionToPlayer * 0.1f;
+                Vector3 closeToPlayer = playerPosition - directionToPlayer * distanceToPlayer;
                 closeToPlayer.y = enemyAgent.transform.position.y;
 
                 //Adjust the destination with the Separation Force

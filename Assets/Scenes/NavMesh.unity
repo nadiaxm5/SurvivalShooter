@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f56f542177b9a34d8001c758a14ae3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5730987815297593945, guid: 50108a5100e6f7245bce065ec041a22d,
+  enemyPrefab: {fileID: 239201668308345667, guid: aad1e1e127d3a9d498b6f36bfcfd2654,
     type: 3}
   minSpawnDistance: 0.1
   maxSpawnDistance: 1
