@@ -1,22 +1,29 @@
 using System.Collections;
 using UnityEngine;
 using Niantic.Lightship.AR.NavigationMesh;
+using TMPro;
 
 public class EnemyMovement : MonoBehaviour
 {
     private LightshipNavMeshAgent enemyAgent;
+    private EnemyBase enemyBase;
     private GameObject player;
 
     [SerializeField] private float updateInterval = 0.5f;
     [SerializeField] private float separationRadius = 0.02f;
     [SerializeField] private float separationStrength = 0.01f;
     private float distanceToPlayer = 0.05f;
+    private Vector3 enemyTarget;
+
+    private void Awake()
+    {
+        enemyAgent = GetComponent<LightshipNavMeshAgent>();
+        enemyBase = GetComponent<EnemyBase>();
+        player = GameObject.FindWithTag("Player");
+    }
 
     private void Start()
     {
-        enemyAgent = GetComponent<LightshipNavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
-
         if (player != null && enemyAgent != null)
             StartCoroutine(UpdateDestination());
 
@@ -39,11 +46,24 @@ public class EnemyMovement : MonoBehaviour
 
                 //Adjust the destination with the Separation Force
                 Vector3 separationForce = CalculateSeparationForce();
-                Vector3 adjustedDestination = closeToPlayer + separationForce;
+                enemyTarget = closeToPlayer + separationForce;
 
                 //Set the new destination
-                enemyAgent.SetDestination(adjustedDestination);
+                enemyAgent.SetDestination(enemyTarget);
             }
+
+            float distanceToDestination = Vector3.Distance(enemyAgent.transform.position, enemyTarget);
+
+            if (distanceToDestination <= distanceToPlayer)
+            {
+                enemyBase.EnemyAttack();
+            }
+
+            else
+            {
+                enemyBase.EnemyStopAttack();
+            }
+
             yield return new WaitForSeconds(updateInterval);
         }
     }

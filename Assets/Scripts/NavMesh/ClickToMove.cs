@@ -8,10 +8,10 @@ using UnityEngine.EventSystems;
 public class ClickToMove : MonoBehaviour
 {
     [SerializeField] private Camera mainCam;
+    private AnimationController animationController;
     private LightshipNavMeshAgent agent; 
     
-    [SerializeField]
-    private List<Vector3> wayPoints = new();
+    [SerializeField] private List<Vector3> wayPoints = new();
     
     [SerializeField] private int currentWayPointIndex = 0;
     [SerializeField] private Vector3 currentWayPoint; 
@@ -19,7 +19,6 @@ public class ClickToMove : MonoBehaviour
     private WaitForSeconds half = new WaitForSeconds(.5f);
     
     private bool isPlaced = false;
-    // Update is called once per frame
 
     private void Start()
     {
@@ -33,10 +32,7 @@ public class ClickToMove : MonoBehaviour
         if (playerObject != null)
         {
             agent = playerObject.GetComponent<LightshipNavMeshAgent>();
-            if (agent == null)
-            {
-                Debug.LogWarning("No se encontró el componente LightshipNavMeshAgent en el GameObject con la etiqueta 'Player'.");
-            }
+            animationController = playerObject.GetComponent<AnimationController>();
         }
         isPlaced = true;
         StartCoroutine(MoveAlongWayPoints());
@@ -95,29 +91,41 @@ public class ClickToMove : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("AgentState is " + agent.State); 
-            Debug.Log("AgentPathStatus is " + agent.path.PathStatus);
-            
-            if (wayPoints.Count == 0) yield return half;
-
-            if (agent.path.PathStatus == Path.Status.PathComplete &&
-                currentWayPointIndex+1 <= wayPoints.Count)
+            if (wayPoints.Count == 0)
             {
-                Debug.Log("agentState => Pathcomlete");
-                agent.SetDestination(wayPoints[currentWayPointIndex]);
-                currentWayPointIndex++;
-            } else if (agent.State == LightshipNavMeshAgent.AgentNavigationState.Idle 
-                       && wayPoints.Count > currentWayPointIndex)
-            {
-                Debug.Log("agentState => Idle");
-                agent.SetDestination(wayPoints[currentWayPointIndex]);
-                currentWayPointIndex++;
+                //No path to follow
+                animationController.ChangeToAnimation("isIdle");
+                yield return half;
             }
+
+            if ((agent.path.PathStatus == Path.Status.PathComplete || agent.path.PathStatus == Path.Status.PathPartial) &&
+                currentWayPointIndex + 1 <= wayPoints.Count)
+            {
+                //Has path to follow
+                agent.SetDestination(wayPoints[currentWayPointIndex]);
+                currentWayPointIndex++;
+                animationController.ChangeToAnimation("isWalking");
+            }
+
+            else if (agent.State == LightshipNavMeshAgent.AgentNavigationState.Idle
+                     && wayPoints.Count > currentWayPointIndex)
+            {
+                //Was Idle but has more path to follow
+                agent.SetDestination(wayPoints[currentWayPointIndex]);
+                currentWayPointIndex++;
+                animationController.ChangeToAnimation("isWalking");
+            }
+            else if (agent.State == LightshipNavMeshAgent.AgentNavigationState.Idle)
+            {
+                //Is idle and has no path to follow
+                animationController.ChangeToAnimation("isIdle");
+            }
+
             yield return half;
         }
-        yield return null; 
     }
-    
+
+
     void TouchToRay(Vector3 touch)
     {
         Ray ray = mainCam.ScreenPointToRay(touch);
