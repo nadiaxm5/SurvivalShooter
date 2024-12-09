@@ -8,16 +8,17 @@ public class PlayerCombat : MonoBehaviour
 
     public void PlayerTakeDamage(float damage)
     {
+        //Decreases player's health by given damage and checks death
         playerHealth -= damage;
-        Debug.Log($"Player took {damage} damage! Remaining health: {playerHealth}");
+        Debug.Log($"Player took {damage} damage. Remaining health: {playerHealth}");
 
         if (playerHealth <= 0)
         {
-            Die();
+            PlayerDie();
         }
     }
 
-    private void Die()
+    private void PlayerDie()
     {
         Debug.Log("Player has died.");
         //To do

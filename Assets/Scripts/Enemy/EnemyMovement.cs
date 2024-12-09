@@ -6,20 +6,24 @@ using TMPro;
 public class EnemyMovement : MonoBehaviour
 {
     private LightshipNavMeshAgent enemyAgent;
-    private EnemyBase enemyBase;
+    [SerializeField] private EnemyCombat enemyCombat;
     private GameObject player;
+    private AnimationController animationController;
 
     [SerializeField] private float updateInterval = 0.5f;
     [SerializeField] private float separationRadius = 0.02f;
     [SerializeField] private float separationStrength = 0.01f;
-    private float distanceToPlayer = 0.05f;
+    private float rangeToPlayer;
     private Vector3 enemyTarget;
+
+    public float enemySpeed = 0.5f;
 
     private void Awake()
     {
         enemyAgent = GetComponent<LightshipNavMeshAgent>();
-        enemyBase = GetComponent<EnemyBase>();
+        enemyCombat = GetComponent<EnemyCombat>();
         player = GameObject.FindWithTag("Player");
+        animationController = GetComponent<AnimationController>();
     }
 
     private void Start()
@@ -29,6 +33,8 @@ public class EnemyMovement : MonoBehaviour
 
         else
             Debug.LogWarning("Player or LightshipNavMeshAgent not found");
+
+        rangeToPlayer = enemyCombat.attackRange;
     }
 
     //Corutine for updating the Enemy Destination 
@@ -38,30 +44,21 @@ public class EnemyMovement : MonoBehaviour
         {
             if (player != null)
             {
-                //Put a position near the player as destination 
+                //Destination near player
                 Vector3 playerPosition = player.transform.position;
                 Vector3 directionToPlayer = (playerPosition - enemyAgent.transform.position).normalized;
-                Vector3 closeToPlayer = playerPosition - directionToPlayer * distanceToPlayer;
+                Vector3 closeToPlayer = playerPosition - directionToPlayer * rangeToPlayer;
                 closeToPlayer.y = enemyAgent.transform.position.y;
 
-                //Adjust the destination with the Separation Force
+                //Adjust destination with group steering behaviour
                 Vector3 separationForce = CalculateSeparationForce();
                 enemyTarget = closeToPlayer + separationForce;
 
-                //Set the new destination
+                //Set destination
                 enemyAgent.SetDestination(enemyTarget);
-            }
 
-            float distanceToDestination = Vector3.Distance(enemyAgent.transform.position, enemyTarget);
-
-            if (distanceToDestination <= distanceToPlayer)
-            {
-                enemyBase.EnemyAttack();
-            }
-
-            else
-            {
-                enemyBase.EnemyStopAttack();
+                //Chack if it has to attack
+                CheckIfAttack();
             }
 
             yield return new WaitForSeconds(updateInterval);
@@ -91,6 +88,23 @@ public class EnemyMovement : MonoBehaviour
 
         //Scale the force with the separation strenght
         return separationForce * separationStrength;
+    }
+
+    private void CheckIfAttack()
+    {
+        float distanceToDestination = Vector3.Distance(enemyAgent.transform.position, enemyTarget);
+        Debug.Log($"Estoy a {distanceToDestination} de lejos");
+
+        //enemyAgent.SetDestination(player.transform.position);  // Forzar destino hacia el jugador
+
+        if (distanceToDestination <= rangeToPlayer + 0.01f)
+        {
+            enemyCombat?.Attack(); //Only attacks if the necessary components are not null
+        }
+        else
+        {
+            animationController?.ChangeToAnimation("isWalking");
+        }
     }
 }
 
