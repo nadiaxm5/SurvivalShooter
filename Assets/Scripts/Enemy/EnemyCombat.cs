@@ -17,8 +17,7 @@ public class EnemyCombat : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log($"{gameObject.name} is attacking.");
-        player.GetComponent<PlayerCombat>()?.PlayerTakeDamage(attackDamage); //Only attacks if playerCombat is not null
+        player.GetComponent<PlayerHealth>()?.PlayerTakeDamage(attackDamage); //Only attacks if playerCombat is not null
         animationController?.ChangeToAnimation("isAttacking");
     }
 }

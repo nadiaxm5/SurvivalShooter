@@ -420,7 +420,7 @@ MonoBehaviour:
     type: 3}
   minSpawnDistance: 0.1
   maxSpawnDistance: 1
-  spawnInterval: 5
+  spawnInterval: 3
 --- !u!1 &1719072726
 GameObject:
   m_ObjectHideFlags: 0

@@ -93,7 +93,6 @@ public class EnemyMovement : MonoBehaviour
     private void CheckIfAttack()
     {
         float distanceToDestination = Vector3.Distance(enemyAgent.transform.position, enemyTarget);
-        Debug.Log($"Estoy a {distanceToDestination} de lejos");
 
         //enemyAgent.SetDestination(player.transform.position);  // Forzar destino hacia el jugador
 
