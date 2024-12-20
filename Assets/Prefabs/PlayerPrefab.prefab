@@ -245,22 +245,22 @@ PrefabInstance:
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.371
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.24
+      value: 1.527
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.554
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9961947
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
@@ -270,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.08715578
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
@@ -285,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
@@ -295,12 +295,17 @@ PrefabInstance:
     - target: {fileID: 81053832379253423, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4390493811223682941, guid: 1048680d97c61a140bc4101ca928627e,
         type: 3}
       propertyPath: m_Name
       value: WeaponPH
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464177098684055077, guid: 1048680d97c61a140bc4101ca928627e,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

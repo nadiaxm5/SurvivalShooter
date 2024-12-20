@@ -13,6 +13,7 @@ public class PlayerCombat : MonoBehaviour
     private float effectsDisplayTime = 0.05f;            //Proportion of the time the effects will display for
     private bool isShooting = false;
     private Coroutine shootingCoroutine;
+    private GameObject closestEnemy;
 
     private void Awake()
     {
@@ -29,6 +30,11 @@ public class PlayerCombat : MonoBehaviour
         {
             StartShooting();
         }
+    }
+
+    private void Update()
+    {
+        closestEnemy = GetClosestEnemy();
     }
 
     private IEnumerator ShootingCoroutine()
@@ -63,43 +69,42 @@ public class PlayerCombat : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject closestEnemy = GetClosestEnemy();
         if (closestEnemy != null)
         {
             //Visual effects
             shootLight.enabled = true;
             shootLine.enabled = true;
-            shootLine.SetPosition(0, activeWeapon.transform.position);
-
-            //Add animation
+            Vector3 laserOrigin = activeWeapon.transform.GetChild(1).position;
+            shootLine.SetPosition(0, laserOrigin);
 
             //Raycast control
-            shootRay.origin = activeWeapon.transform.position;
-            shootRay.direction = (closestEnemy.transform.position - activeWeapon.transform.position).normalized;
-            Debug.Log("I shot");
+            shootRay.origin = laserOrigin;
+            Vector3 enemyPosition = closestEnemy.GetComponent<Collider>().bounds.center;
+            shootRay.direction = (enemyPosition - laserOrigin).normalized;
 
-            if (Physics.Raycast(shootRay, out shootHit, activeWeapon.weaponRange))
+
+            if (Physics.Raycast(shootRay.origin, shootRay.direction, out shootHit, activeWeapon.weaponRange))
             {
+                Debug.Log(shootHit.transform.name);
                 if (shootHit.collider.CompareTag("Enemy"))
                 {
+                    shootLine.SetPosition(1, shootHit.point);
                     //The player shoots to the closest Enemy but may hit another enemy, check which one
                     EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
 
-                    Debug.Log($"And I hit something. Is enemy null? {enemyHealth == null}");
+                    Debug.Log($"I hit an enemy");
 
                     enemyHealth?.TakeDamage(activeWeapon.weaponDamage);
-                    shootLine.SetPosition(1, shootHit.point);
-                }               
+                }
             }
             else
             {
-                Vector3 endPosition = new Vector3((shootRay.origin + shootRay.direction * activeWeapon.weaponRange).x,
-                                                  transform.position.y,
-                                                  (shootRay.origin + shootRay.direction * activeWeapon.weaponRange).z);
-                shootLine.SetPosition(1, endPosition);
-                Debug.Log("But I hit nothing");
+                shootLine.SetPosition(1, shootRay.origin + shootRay.direction * activeWeapon.weaponRange);
+                Debug.Log("I hit nothing");
             }
         }
+        else
+            Debug.Log("closest enemy es null");
     }
 
     public void DisableEffects()
@@ -132,6 +137,5 @@ public class PlayerCombat : MonoBehaviour
             return closestEnemyCollider.gameObject;
 
         return null;
-
     }
 }
